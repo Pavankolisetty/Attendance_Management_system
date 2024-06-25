@@ -1,0 +1,209 @@
+/* Header section */
+body {
+  font-family: "Times New Roman", Times, serif;
+}
+header {
+  /* background-color: rgb(28, 175, 238);
+  color: black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  /* align-items: center;
+  padding: 20px;
+  font-family: "Times New Roman", Times, serif; */
+
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 100px; /* Adjust the width of the logo as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 20px; /* Margin between the logo and text */
+}
+
+.header-text h1 {
+  margin: 0; /* Remove default margin */
+}
+
+.header-text h2 {
+  margin: 5px 0; /* Adjust margin for the subtitle */
+}
+
+.cont {
+  background-color: rgba(247, 242, 242, 0.447);
+  color: black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  padding: 20px;
+}
+
+/* Logo image */
+.logo {
+  width: 250px; /* Adjust the width as needed */
+}
+
+/* Style for select dropdowns */
+select {
+  height: 50px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f0f0f0; /* Default background color */
+  /* color: #333; Default text color */
+  font-size: 16px;
+  width: 40%;
+  max-width: 300px; /* Adjust max-width as needed */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+}
+
+/* Style for labels */
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* styles for the branch, section, name, number of hours */
+.intial-inputs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; /* Add margin bottom for spacing */
+}
+
+/* Style for text input */
+input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 40%;
+  max-width: 280px; /* Adjust max-width as needed */
+  transition: border-color 0.3s; /* Smooth transition effect */
+  height: 25px;
+}
+
+/* Style for text input when focused */
+input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff; /* Border color when focused */
+}
+
+/* Style for select dropdowns when hovered */
+select:hover {
+  background-color: #e0e0e0; /* Lighter background color on hover */
+}
+
+/* Style for select dropdowns when focused */
+select:focus {
+  outline: none;
+  background-color: #ddd; /* Light gray background color when focused */
+}
+
+/* Style for select dropdowns options */
+select option {
+  background-color: #fff; /* Default background color for options */
+  /* color: #333; Default text color for options */
+}
+
+/* Style for select dropdowns options when hovered */
+select option:hover {
+  background-color: #f2f2f2; /* Lighter background color for options on hover */
+}
+
+/* Animation for select dropdowns */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+select {
+  animation: fadeIn 0.5s ease-in-out; /* Fade-in animation effect */
+}
+
+/* styles for the registration number checkboxes */
+.student-grid {
+  display: grid;
+  grid-template-columns: 40% 40% 40%;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 2fr));
+  gap: 30px;
+}
+
+.student {
+  display: flex;
+  align-items: center;
+}
+
+.student input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Styles for the absent list container */
+#absentList {
+  display: none;
+  margin-top: 20px;
+}
+
+/* Styles for the absentees table */
+#absentTable {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid w;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#absentTable th,
+#absentTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid white;
+}
+
+#absentTable th {
+  background-color: #f2f2f2;
+}
+
+#absenteesBody {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Hover effect */
+#absentTable tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Zebra striping */
+#absentTable tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Styles for the animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}

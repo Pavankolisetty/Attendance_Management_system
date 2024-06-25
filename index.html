@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ACSE Department</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .student-list {
+        display: none;
+      }
+
+      #submitAttendance {
+        display: none;
+      }
+
+      #absentList {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <img
+        src="C:\Users\pavan kumar\OneDrive\Pictures\LOGO_change.jpg"
+        alt="Logo"
+        class="logo"
+      />
+      <div class="header-text">
+        <h1>ACSE Department</h1>
+        <h2>CRT Attendance</h2>
+      </div>
+    </header>
+    <br />
+    <div class="cont">
+      <form id="attendanceForm">
+        <div class="intial-inputs">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <label for="Branch">Select Branch:</label>
+          <select id="Branch">
+            <option value="Choose"></option>
+            <option value="CSBS">CSBS</option>
+            <option value="CSCS">CSCS</option>
+            <option value="AIML">AIML</option>
+          </select>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <label for="Section">Select Section:</label>
+          <select id="Section">
+            <option value="section"></option>
+            <option value="A">A</option>
+          </select>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+          <label for="facultyName">Faculty Name:</label>
+          <input type="text" id="facultyName" />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <label for="numHours">Number of Hours:</label>
+          <select id="numHours">
+            <option value=""></option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div align="right">
+          <b>Date:</b> <input type="date" id="date" readonly />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <b>Select all:</b> <input type="checkbox" id="selectAll" />
+        <!-- "Select All" checkbox -->
+        <br /><br />
+        <div class="student-list" id="studentList">
+          <!--Here the student list comes from the js-->
+        </div>
+        <br /><br />
+        <button type="submit" id="submitAttendance">Submit Attendance</button>
+      </form>
+      <br /><br />
+      <div id="absentList">
+        <h2>Absentees</h2>
+        <table id="absentTable">
+          <thead>
+            <tr>
+              <th>Branch</th>
+              <th>Section</th>
+              <th>Date</th>
+              <th>Faculty</th>
+              <th>Number of hours</th>
+              <th>Absentees</th>
+            </tr>
+          </thead>
+          <tbody id="absenteesBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <script>
+      // code to generate the studentlist
+      // code to generate the student list dynamically
+      function generateStudentList(branch) {
+        var count;
+        var prefix;
+        if (branch === "CSBS") {
+          count = 32;
+          prefix = "211FA200";
+        } else if (branch === "CSCS") {
+          count = 70;
+          prefix = "211FA190";
+        } else if (branch === "AIML") {
+          count = 100;
+          prefix = "211FA180";
+        }
+
+        var grid = '<div class="student-grid">';
+        for (var i = 1; i <= count; i++) {
+          grid +=
+            '<div class="student"><input type="checkbox" id="student' +
+            i +
+            '" name="student' +
+            i +
+            '" value="' +
+            prefix +
+            (i < 10 ? "0" + i : i) +
+            '"> <label for="student' +
+            i +
+            '">' +
+            prefix +
+            (i < 10 ? "0" + i : i) +
+            "</label></div>";
+        }
+        grid += "</div>";
+        return grid;
+      }
+
+      // Event listener for branch selection
+      document.getElementById("Branch").addEventListener("change", function () {
+        var branch = this.value;
+        var section = document.getElementById("Section").value;
+        if (
+          (branch === "CSBS" || branch === "CSCS" || branch === "AIML") &&
+          section !== "section"
+        ) {
+          document.getElementById("studentList").innerHTML =
+            generateStudentList(branch);
+          document.querySelector(".student-list").style.display = "block";
+          document.getElementById("submitAttendance").style.display = "block";
+          document.getElementById("selectAll").style.display = "block"; // Show the "Select All" checkbox
+        } else {
+          document.querySelector(".student-list").style.display = "none";
+          document.getElementById("submitAttendance").style.display = "none";
+          document.getElementById("selectAll").style.display = "none"; // Hide the "Select All" checkbox
+        }
+      });
+
+      // Event listener for section selection
+      document
+        .getElementById("Section")
+        .addEventListener("change", function () {
+          var branch = document.getElementById("Branch").value;
+          var section = this.value;
+          if (
+            (branch === "CSBS" || branch === "CSCS" || branch === "AIML") &&
+            section !== "section"
+          ) {
+            document.getElementById("studentList").innerHTML =
+              generateStudentList(branch);
+            document.querySelector(".student-list").style.display = "block";
+            document.getElementById("submitAttendance").style.display = "block";
+            document.getElementById("selectAll").style.display = "block"; // Show the "Select All" checkbox
+          } else {
+            document.querySelector(".student-list").style.display = "none";
+            document.getElementById("submitAttendance").style.display = "none";
+            document.getElementById("selectAll").style.display = "none"; // Hide the "Select All" checkbox
+          }
+        });
+
+      // Add event listener for the "Select All" checkbox
+      document
+        .getElementById("selectAll")
+        .addEventListener("change", function (event) {
+          var checkboxes = document.querySelectorAll(
+            '.student input[type="checkbox"]'
+          );
+          checkboxes.forEach(function (checkbox) {
+            checkbox.checked = event.target.checked;
+          });
+        });
+
+      // code to submit the attendance form
+      document
+        .getElementById("attendanceForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var branch = document.getElementById("Branch").value;
+          var section = document.getElementById("Section").value;
+          var facultyName = document.getElementById("facultyName").value;
+          var numHours = document.getElementById("numHours").value;
+          var date = document.getElementById("date").value;
+
+          if (
+            branch === "Choose" ||
+            section === "section" ||
+            date === "" ||
+            facultyName === "" ||
+            numHours === "Choose"
+          ) {
+            alert("Please fill in all the fields.");
+            return;
+          }
+
+          var absentees = [];
+          var checkboxes = document.querySelectorAll(
+            '.student input[type="checkbox"]'
+          );
+          checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+              absentees.push(checkbox.value);
+            }
+          });
+
+          if (absentees.length > 0) {
+            // Prepare data to display absentees list
+            var tableBody = document.getElementById("absenteesBody");
+            var newRow = tableBody.insertRow();
+            var branchCell = newRow.insertCell(0);
+            var sectionCell = newRow.insertCell(1);
+            var dateCell = newRow.insertCell(2);
+            var facultyCell = newRow.insertCell(3);
+            var hoursCell = newRow.insertCell(4);
+            var absenteesCell = newRow.insertCell(5);
+
+            branchCell.appendChild(document.createTextNode(branch));
+            sectionCell.appendChild(document.createTextNode(section));
+            dateCell.appendChild(document.createTextNode(date));
+            facultyCell.appendChild(document.createTextNode(facultyName));
+            hoursCell.appendChild(document.createTextNode(numHours));
+            absenteesCell.appendChild(
+              document.createTextNode(absentees.join(", "))
+            );
+
+            document.getElementById("absentList").style.display = "block";
+            alert(
+              "Your attendance posted successfully. See the absentees list below."
+            );
+          } else {
+            alert("All students are present.");
+          }
+        });
+
+      // code to set default date
+      document.addEventListener("DOMContentLoaded", function () {
+        var currentDate = new Date();
+        var day = currentDate.getDate();
+        var month = currentDate.getMonth() + 1; // Months are zero indexed
+        var year = currentDate.getFullYear();
+
+        // Format the date as YYYY-MM-DD
+        var formattedDate =
+          year +
+          "-" +
+          (month < 10 ? "0" + month : month) +
+          "-" +
+          (day < 10 ? "0" + day : day);
+
+        document.getElementById("date").value = formattedDate;
+      });
+    </script>
+  </body>
+</html>
